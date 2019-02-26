@@ -1,0 +1,10 @@
+{
+    "workbench.colorCustomizations":
+    {
+        "editor.selectionForeground": "#00AC00",    
+        "editor.foreground": "#00AC00",    
+        // "editor.foreground": "#c0c0c0"
+    },
+    "vetur.validation.template": false
+}
+

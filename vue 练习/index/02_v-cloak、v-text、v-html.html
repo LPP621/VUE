@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width、initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-cloak、v-text、v-html</title>
+    <style>
+        [v-cloak]{       /*属性选择器，代表所有有 v-cloak 的*/
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--使用 v-cloak 可以解决某些时候插值表达式闪烁的问题-->
+    <p v-cloak>++++++{{ msg }}--------</p>            <!-- ++++++123-------- -->
+    <!--默认 v-text 是没有闪烁问题的-->
+    <!--但是 v-text 会覆盖元素中原本的内容，但是插值表达式只会替换自己的这个占位符，例如{{msg}},不会把整个元素的内容清空-->
+    <p v-text="msg">=========</p>                   <!-- 123 -->
+
+    <!--只有 v-html 能显示，但是也会覆盖元素中原本的内容-->
+    <div>{{msg2}}</div>
+    <div v-text="msg2"></div>
+    <div v-html="msg2">1111</div>
+</div>
+
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '123',
+            msg2: '<h1>我是一个大大的h1,请把我显示成 h1 的大小</h1>'
+        }
+    })
+</script>
+
+</body>
+</html>
