@@ -6,8 +6,8 @@
 </head>
 <body>
 <div id="app">
-    <button @title="lang">浪起来</button>
-    <input type="button" value="低调" title="">
+    <input type="button" value="浪起来" @click="lang">
+    <input type="button" value="低调" @click="stop">
     <h4>{{ msg }}</h4>
 </div>
 <script src="../public/vue.js"></script>
@@ -18,12 +18,31 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            msg: '猥琐发育，别浪～～'
+            msg: '猥琐发育，别浪～～',
+            intervalId: null       // 在 data 上定义定时器 ID
         },
         methods: {
-          lang: function() {
-              console.log(this.msg)
-          }
+            lang() {
+
+              // console.log(this.msg)
+              // es6 的箭头函数, 箭头函数内部的this 和外部的保持一致，箭头函数外部的 this 就指向 VM 实例，所以使用箭头函数就不用重新定义this
+                
+                if (this.intervalId != null) return
+                this.intervalId = setInterval( () => {
+                // 获取到头的第一个字符 
+                    var start = this.msg.substring(0,1)
+               // 获取到 后面的所有字符
+                    var end = this.msg.substring(1)
+               // 重新拼接得到新的字符串，并赋值给 this.msg
+                    this.msg = end + start
+                },500)
+              // 注意：VM 实例，会监听自己身上 data 中所有数据的改变，只要数据一发生变化，就会自动把最新的数据，从 data 上同步到页面中去
+            },
+            stop() {  // 停止定时器
+                clearInterval(this.intervalId)
+                // 每当清除了定时器ID的时候，intervalId 重新设置成 null
+                this.intervalId = null
+            }
         }
     })
 

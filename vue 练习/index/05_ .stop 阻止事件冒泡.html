@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>.stop 阻止事件冒泡</title>
+    <style>
+        .inner {
+            width: 200px;
+            height: 200px;
+            background-color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 使用 .stop 阻止事件冒泡 -->
+    <div class="inner" @click="divHandler">
+        <input type="button" value="冒泡" @click.stop="btnHandler">
+    </div>
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            divHandler() {
+                console.log("我是外面的大 div ")
+            },
+            btnHandler() {
+                console.log("我是按钮")
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>.capture 事件捕获</title>
+    <style>
+        .inner {
+            width: 200px;
+            height: 200px;
+            background-color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+    <!-- .capture 可以用于事件捕获，也就是下面例子中先执行inner div 的操作 从外到里 -->
+<div id="app">
+    <div class="inner" @click.capture="divHandler">
+        <input type="button" value="冒泡" @click="btnHandler">
+    </div>
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            divHandler() {
+                console.log("我是外面的大 div ")
+            },
+            btnHandler() {
+                console.log("我是按钮")
+            }
+        }
+    })
+</script>
+</body>
+</html>

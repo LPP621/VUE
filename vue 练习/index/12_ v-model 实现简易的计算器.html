@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>v-model 实现简易的计算器</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="n1">
+        <select v-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model="n2">
+        <input type="button" value="=" @click="calc">
+        <input type="text" v-model="result">
+    </div>
+    <script src="../public/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                n1: 0,
+                n2: 0,
+                result: 0,
+                opt: '+'
+            },
+            methods: {
+                calc() {   // 计算器算数的方法
+                    switch(this.opt){
+                        case '+':
+                            this.result = parseFloat(this.n1) + parseFloat(this.n2)
+                            break;
+                        case '-':
+                            this.result = parseFloat(this.n1) - parseFloat(this.n2)
+                            break;
+                        case '*':
+                            this.result = parseFloat(this.n1) * parseFloat(this.n2)
+                            break;
+                        case '/':
+                            this.result = parseFloat(this.n1) / parseFloat(this.n2)
+                            break;
+                    }
+
+                    // 投机取巧的方式：不建议使用,正式开发中尽量少用
+                    // var codeStr = 'parseFloat(this.n1)'+ this.opt + 'parseFloat(this.n2)'
+                    // this.result = eval(codeStr)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

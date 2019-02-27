@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>.self 只有元素自身才触发回调</title>
+    <style>
+        .inner {
+            width: 200px;
+            height: 200px;
+            background-color: #c0c0c0;
+        }
+    </style>
+</head>
+<body>
+    <!-- .self 只有点击元素自己的时候才会触发事件处理函数 -->
+<div id="app">
+    <div class="inner" @click.self="divHandler"> 
+        <input type="button" value="冒泡" @click="btnHandler">
+    </div>
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            divHandler() {
+                console.log("我是外面的大 div ")
+            },
+            btnHandler() {
+                console.log("我是按钮")
+            }
+        }
+    })
+</script>
+</body>
+</html>

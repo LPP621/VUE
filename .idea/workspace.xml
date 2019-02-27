@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6f4c443-ec96-476d-bd5d-095b850d02d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue 练习/index/01_index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue 练习/index/02_v-cloak、v-text、v-html.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue 练习/index/03_v-bind.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue 练习/index/04_跑马灯效果.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue 练习/public/vue.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +14,7 @@
     <session id="1365230884">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.opened" value="2" />
@@ -90,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue 练习/index/04_跑马灯效果.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="696">
-              <caret line="24" column="35" lean-forward="true" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+            <state relative-caret-position="609">
+              <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -125,9 +119,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="31" />
-    <option name="y" value="53" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="14" />
+    <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="970" />
   </component>
@@ -214,15 +208,15 @@
       <option name="presentableId" value="Default" />
       <updated>1551169794915</updated>
       <workItem from="1551169799269" duration="4541000" />
-      <workItem from="1551180258771" duration="2618000" />
+      <workItem from="1551180258771" duration="3540000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7159000" />
+    <option name="totallyTimeSpent" value="8081000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="970" extended-state="6" />
+    <frame x="14" y="23" width="1920" height="970" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25239617" />
@@ -290,8 +284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue 练习/index/04_跑马灯效果.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="24" column="35" lean-forward="true" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+        <state relative-caret-position="609">
+          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
         </state>
       </provider>
     </entry>

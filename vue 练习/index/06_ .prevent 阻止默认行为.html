@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>.prevent 阻止默认行为</title>
+</head>
+<body>
+<div id="app">
+    <a href="http://www.google.com" @click.prevent="linkClick">谷歌</a>
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            linkClick() {
+                console.log('触发了链接事件')
+            }
+        }
+    })
+</script>
+</body>
+</html>
