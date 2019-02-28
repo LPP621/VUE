@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 中使用样式</title>
+</head>
+<body>
+<div id="app">
+    <!-- 对象就是无序键值对的集合 -->
+    <!-- 方式一： -->
+    <h1 :style="{ color: 'red', 'font-weight': 200}">这是 H1</h1>
+    <!-- 方式二： -->
+    <h2 :style="styleObj1">这是 h2</h2>
+    <!-- 方式三： -->
+    <h3 :style="[styleObj1, styleObj2]">这是 h3</h3>
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            styleObj1: { color: 'blue', 'font-weight': 400},
+            styleObj2: { 'font-style': 'italic'}
+        },
+        methods: {}
+    })
+</script>
+</body>
+</html>

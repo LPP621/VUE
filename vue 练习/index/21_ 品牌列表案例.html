@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌列表案例</title>
+    <link rel="stylesheet" href="../public/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <style>
+        * {margin: 0;padding: 0;}
+        body {padding-left: 2%;padding-top: 2%;}
+        label {margin-left: 5px}
+        table {margin-top: 2%}
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加品牌</h3>
+        </div>
+        <div class="panel-body form-inline">
+            <label>
+                Id:
+                <input type="text" v-model="id">
+            </label>
+            <label>
+                Name:
+                <input type="text" v-model="name">
+            </label>
+
+            <!-- 在 vue 中使用事件绑定机制，为元素指定处理函数的时候，如果加了(),代表可以传参 -->
+            <input type="button" value="添加" class="btn btn-sm btn-primary" @click="add()">
+            <label>
+                搜索关键字:
+                <input type="text" v-model="search">
+            </label>
+
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Ctime</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in list" :key="item.id">
+                <td>{{ item.id }}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime}}</td>
+                <td><a href="" @click.prevent="del(item.id)">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            search: '',
+            list: [
+                { id: 1, name: '奔驰',ctime: new Date() },
+                { id: 2, name: '宝马',ctime: new Date() },
+            ]
+        },
+        methods: {
+            add(){
+                // 分析：
+                // 1、获取到 id 和 name, 直接从 data 上面获取
+                // 2、组织出一个对象
+                // 3、把这个对象，调用数组的相关方法，添加到当前 data 上的 list 中
+                // 4、注意：在 vue 中，已经实现了数据的双向绑定，每当我们修改了 data 中的数据，Vue会默认监听到数据的改动，
+                //     自己把最新的数据，应用到页面上
+                // 5、当我们意识到上面的第四步的时候，就证明已经入门 vue 了，我们更多的是在进行 VM 中 Model 数据的操作，
+                //     同时，在操作 Model 数据的时候，指定的业务逻辑操作
+
+                var car = { id: this.id, name: this.name, ctime: new Date() }
+                this.list.push(car)
+                this.id = this.name = ''
+            },
+            del(id){   // 根据 ID 删除数据
+                // 分析：
+                // 1、如何根据 id 找到要删除对象的索引
+                // 2、如果找到了，直接调用数组的 splice 方法
+
+                // 方法一：some: 根据指定的来找
+                // this.list.some((item, i)=>{
+                //     if(item.id == id){
+                //         this.list.splice(i,1)
+                //         // 在数组的 some 方法中，如果 return true， 就会立即终止这个数组的后续循环
+                //         return true;
+                //     }
+                // })
+
+                // 方法二：
+                var index = this.list.findIndex(item => {
+                    if(item.id == id){
+                        return true;
+                    }
+                })
+                this.list.splice(index,1)
+            }
+        }
+    })
+</script>
+</body>
+</html>
