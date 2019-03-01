@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用钩子函数的第二个 binding 参数</title>
+    <link rel="stylesheet" href="../public/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <style>
+        * {margin: 0;padding: 0;}
+        body {padding-left: 2%;padding-top: 2%;}
+        label {margin-left: 5px}
+        table {margin-top: 2%}
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加品牌</h3>
+        </div>
+        <div class="panel-body form-inline">
+            <label>
+                Id:
+                <input type="text" v-model="id">
+            </label>
+            <label>
+                Name:
+                <input type="text" v-model="name" @keyup.f2="add">
+            </label>
+            <input type="button" value="添加" class="btn btn-sm btn-primary" @click="add()">
+            <label>
+                搜索关键字:
+                <!-- 注意： Vue 中所有的指令，在调用的时候都以 v- 开头 -->
+                <input type="text" class="form-control" v-model="keywords" v-focus v-color="'blue'">
+            </label>
+
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Ctime</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in search(keywords)" :key="item.id">
+                <td>{{ item.id }}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime | dataFormat('yyyy-mm-dd')}}</td>
+                <td><a href="" @click.prevent="del(item.id)">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="app2">
+    {{ dt | dateFormat}}
+</div>
+<script src="../public/vue.js"></script>
+<script>
+    Vue.filter('dataFormat', function(dateStr, pattern=" "){
+        var dt = new Date(dateStr)
+        var y = dt.getFullYear()
+        var m = (dt.getMonth() + 1).toString().padStart(2,'0')
+        var d = dt.getDate().toString().padStart(2,'0')
+       if(pattern.toLowerCase() === 'yyyy-mm-dd'){  // 由于不能保证传的时候传的是大写还是小写，所以转为小写好比较
+            return `${y}-${m}-${d}`
+        }else {
+            var hh = dt.getHours().toString().padStart(2,'0')
+            var mm = dt.getMinutes().toString().padStart(2,'0')
+            var ss = dt.getSeconds().toString().padStart(2,'0')
+            return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+        }
+    })
+    // 自定义全局按键修饰符
+    Vue.config.keyCodes.f2 = 113
+
+    // 使用 Vue.directive()定义全局的指令
+    // 其中：参数1: 指令的名称，注意，在定义的时候，指令的名称前面，不需要加 v- 前缀，
+    // 但是，在调用的时候，必须在指令名称前面加 v- 前缀来进行调用
+    // 参数2:是一个对象，在这个对象身上，
+    Vue.directive('focus', {
+        bind: function(el){  // 每当指令绑定到元素上的额时候，就会立即执行这个 bind 函数，只执行一次
+            // 注意：在每个函数中，第一个参数，永远是 el,表示被绑定了指令的那个元素，这个 el 元素，是一个原生的 JS 对象
+            // 在元素刚绑定了指令的时候，还没有插入到 DOM 中去，这时，调用 focus 方法没有作用
+            // el.focus()
+        },
+        inserted: function(el){ // inserted 表示元素插入到 DOM 中的时候，会执行 inserted 函数【触发一次】
+            el.focus()
+        },
+        updated: function(){ // 当 VNode 更新的时候，会执行 updated，可能会触发多次
+
+        }
+    })
+
+    // 自定义一个设置字体颜色的指令
+    Vue.directive('color',{
+        bind: function(el,binding) {
+            // v 里面调用的 v-color 只有v-color 后面没有任何参数时
+            // el.style.color = 'red'
+            
+            // console.log(binding.name)
+            // 和样式相关的操作一般都可以在 bind 运行
+            // v-color 后面自定义参数时
+            el.style.color = binding.value
+        }
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            keywords: '',
+            list: [
+                { id: 1, name: '奔驰',ctime: new Date() },
+                { id: 2, name: '宝马',ctime: new Date() },
+            ]
+        },
+        methods: {
+            add(){
+                var car = { id: this.id, name: this.name, ctime: new Date() }
+                this.list.push(car)
+                this.id = this.name = ''
+            },
+            del(id){ 
+                var index = this.list.findIndex(item => {
+                    if(item.id == id){
+                        return true;
+                    }
+                })
+                this.list.splice(index,1)
+            },
+            search(keywords){
+                return this.list.filter(item => {
+                    if(item.name.includes(keywords)){
+                        return item
+                    }
+                })
+            }
+        }
+    })
+    var vm2 = new Vue({  
+        el: '#app2',
+        data: {
+            dt: new Date()
+        },
+        methods: {},
+        filters: {
+            dateFormat: function(dateStr,pattern = ''){
+                var dt = new Date(dateStr)
+                var y = dt.getFullYear()
+                var m = (dt.getMonth() + 1).toString().padStart(2,'0')
+                var d = dt.getDate().toString().padStart(2,'0')
+                if(pattern.toLowerCase() === 'yyyy-mm-dd'){  // 由于不能保证传的时候传的是大写还是小写，所以转为小写好比较
+                    return `${y}-${m}-${d}`
+                }else {
+                    var hh = dt.getHours().toString().padStart(2,'0')
+                    var mm = dt.getMinutes().toString().padStart(2,'0')
+                    var ss = dt.getSeconds().toString().padStart(2,'0')
+                    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

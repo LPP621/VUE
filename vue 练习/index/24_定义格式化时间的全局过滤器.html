@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>品牌列表案例</title>
+    <title>定义格式化时间的全局过滤器</title>
     <link rel="stylesheet" href="../public/bootstrap-4.3.1-dist/css/bootstrap.min.css">
     <style>
         * {margin: 0;padding: 0;}
@@ -50,7 +50,7 @@
             <tr v-for="item in search(keywords)" :key="item.id">
                 <td>{{ item.id }}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.ctime}}</td>
+                <td>{{item.ctime | dataFormat('yyyy-mm-dd')}}</td>
                 <td><a href="" @click.prevent="del(item.id)">删除</a></td>
             </tr>
         </tbody>
@@ -58,6 +58,32 @@
 </div>
 <script src="../public/vue.js"></script>
 <script>
+
+    // 全局的过滤器，进行时间的格式化
+    Vue.filter('dataFormat', function(dateStr, pattern=" "){
+        // 根据给定的时间的字符串，得到特定的时间
+        var dt = new Date(dateStr)
+
+        // yyyy-mm-dd
+        var y = dt.getFullYear()
+        var m = dt.getMonth() + 1
+        var d = dt.getDate()
+
+        // return y + '-' + m + '-' + d
+
+        if(pattern.toLowerCase() === 'yyyy-mm-dd'){  // 由于不能保证传的时候传的是大写还是小写，所以转为小写好比较
+            return `${y}-${m}-${d}`
+        }else {
+            var hh = dt.getHours()
+            var mm = dt.getMinutes()
+            var ss = dt.getSeconds()
+
+            return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+        }
+        
+
+    })
+
     var vm = new Vue({
         el: '#app',
         data: {
